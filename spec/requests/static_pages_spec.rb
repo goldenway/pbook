@@ -7,24 +7,17 @@ describe "StaticPages" do
 		before { visit root_path }
 
 		it { should have_selector('title',     text: 'PammBook') }
-	    it { should_not have_selector('title', text: '| Home') }
+	    it { should_not have_selector('title', text: full_title('Home')) }
 	end
 
 	describe "About page" do
 		before { visit about_path }
 
-		it { should have_selector('title',      text: 'PammBook | About') }
+		it { should have_selector('title',      text: full_title('About')) }
 		it { should have_content('About') }
 	end
 
-	it "should have the right links on the layout" do
-	    visit root_path
-		click_link "About"
-		page.should have_selector 'title', text: 'About'
-		click_link "Home"
-		click_link "Sign up now!"
-		page.should have_selector 'title', text: 'Sign up'
-		click_link "pbook"
-		page.should have_selector 'title', text: 'PammBook'
+	describe "should have the right links on the layout" do
+		it { should_have_correct_static_pages_links } # defined in spec/support/utilities.rb
 	end
 end
