@@ -1,3 +1,74 @@
 <% provide(:title, 'About') %>
-
 <h3>About page</h3>
+
+
+
+<br/>
+<b>Users:</b>
+
+<table id="users" class="display">
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Admin</th>
+			<th>First Name</th>
+			<th>Email</th>
+			<th>M/W</th>
+			<th>Age</th>
+			<th>Country</th>
+			<th>City</th>
+			<th>FB</th>
+			<th>Info</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% User.all.each do |user| %>
+		<tr>
+			<td><a href="http://apple.com"><%= user.name %></a></td>
+			<td><% if user.admin %>admin<% else %>no<% end %></td>
+			<td><%= user.first_name %></td>
+			<td><%= user.email %></td>
+			<td><%= user.sex %></td>
+			<td><%= user.date_of_birth %></td>
+			<td><%= user.country %></td>
+			<td><%= user.city %></td>
+			<td><%= user.social_fb %></td>
+			<td><%= user.about_info %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+
+<br/>
+<b>Traders:</b>
+
+<table id="traders" class="display">
+	<thead>
+		<tr>
+			<th>Brocker</th>
+			<th>Name</th>
+			<th>Account</th>
+			<th>Registr</th>
+			<th>Pamm 2.0</th>
+			<th>TP</th>
+			<th>Min value</th>
+			<th>Inv %</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% Trader.all.each do |trader| %>
+		<tr>
+			<td><%= trader.brocker %></td>
+			<td><%= trader.name %></td>
+			<td><%= trader.account %></td>
+			<td><%= trader.registration_date %></td>
+			<td><%= trader.pamm2 %></td>
+			<td><%= trader.tp %></td>
+			<td><%= trader.min_value %></td>
+			<td><%= trader.investor_percent %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

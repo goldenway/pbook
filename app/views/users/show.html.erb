@@ -10,3 +10,33 @@
 		</section>
 	</aside>
 </div>
+
+<br/><br/><hr/>
+Portfolios:
+<ol>
+	<% @user.portfolios.each do |portfolio| %>
+		<li>
+			<b>Portfolio:</b> <%= portfolio.name %><br/>
+			Rating: <%= portfolio.rating %><br/>
+			Comment: <%= portfolio.comment %>
+			<ul>
+				<% portfolio.portfolio_weeks.each_with_index do |week, index| %>
+					<li>Week_<%= index+1 %> - Rating: <%= week.profit %></li>
+					Traders:
+					<ul>
+						<% week.portfolio_traders.each do |portfolio_trader| %>
+							<li>
+								<% trader = Trader.find_by_account(portfolio_trader.trader_account) %>
+								Start: <%= portfolio_trader.start_value %>&nbsp;&nbsp;&nbsp;
+								End: <%= portfolio_trader.end_value %>&nbsp;&nbsp;&nbsp;
+								<%= trader.account %>&nbsp;&nbsp;&nbsp;
+								TP: <%= trader.tp %>&nbsp;&nbsp;&nbsp;
+								<%= trader.brocker %>
+							</li>
+						<% end %>
+					</ul>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+</ol>

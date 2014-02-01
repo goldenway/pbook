@@ -13,7 +13,12 @@
 #
 
 class User < ActiveRecord::Base
-	attr_accessible :name, :email, :password, :password_confirmation
+	attr_accessible :name, :email, :password, :password_confirmation, :first_name, 
+					:second_name, :sex, :date_of_birth, :country, :city, :start_inv_date,
+					:social_vk, :social_fb, :about_info
+
+	has_many :portfolios
+
 	has_secure_password
 
 	# before_save { name.downcase! }
