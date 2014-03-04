@@ -21,11 +21,11 @@ namespace :db do
 				         about_info: 			"Lorem#{n+2}") # Faker::Lorem.sentence(1)
 		end
 
-		12.times do
+		55.times do
 			Trader.create!(brocker: 			["FX", "Panteon"].sample,
 						   name: 				Faker::Name.first_name,
 						   account: 			500000 + rand(65000),
-						   registration_date: 	Time.now.year - rand(5),
+						   registration_date: 	Time.now - rand(5).years,
 						   pamm2: 				[nil, (4 + rand(3)) * 10].sample,
 						   tp: 					[1, 2, 4].sample,
 						   min_value: 			[10, 50, 100, 200].sample,
@@ -36,19 +36,19 @@ namespace :db do
 			User.all.each do |user|
 				portfolio = user.portfolios.create!(
 							name: 				Faker::Name.last_name,
-							rating: 			(-1 + rand(5) + rand).round(2),
+							rating: 			(-1 + rand(5) + rand).round(5),
 							comment: 			Faker::Lorem.sentence(5))
 
-				3.times do
+				10.times do
 					portfolio_week = portfolio.portfolio_weeks.create!(
-							profit: 			(-1 + rand(5) + rand).round(2))
+							profit: 			(-1 + rand(5) + rand).round(5))
 
-					5.times do
+					12.times do
 						trader = Trader.all.sample
 						portfolio_week.portfolio_traders.create!(
 							trader_account: 	trader.account,
 							start_value: 		100,
-							end_value: 			110 + rand(9))
+							end_value: 			(90 + rand(23) + rand).round(5))
 					end
 				end
 			end

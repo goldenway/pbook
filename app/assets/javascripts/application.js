@@ -14,4 +14,19 @@
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
 //= require bootstrap
+//= require dataTables/DT_bootstrap.js
 //= require_tree .
+
+
+//  with this file "bJQueryUI" doesn't work
+//  require dataTables/jquery.dataTables.bootstrap3
+
+// ColVis Extra (DataTables)
+//= require dataTables/extras/ColVis
+
+// TableTools Extra (DataTables)
+//= require dataTables/extras/TableTools
+//= require dataTables/extras/ZeroClipboard.js
+
+// ColumnFilter Extra (DataTables)
+//= require dataTables/columnFilter.js
