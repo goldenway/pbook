@@ -1,42 +1,194 @@
 <% provide(:title, @user.name) %>
 
-<div class="row">
+
+<script src="http://code.highcharts.com/modules/drilldown.js"></script>
+<script src="http://code.highcharts.com/modules/data.js"></script>
+
+
+<!-- <div class="">
 	<aside class="span4">
 		<section>
 			<h1>
-				<%= gravatar_for @user, size: 70 %>
+				<%= gravatar_for @user, size: 35 %>
 				<%= @user.name %>
 			</h1>
+			<span><%= link_to "profile", @user %></span>
 		</section>
 	</aside>
+</div> -->
+
+
+
+<!-- totals _______________________________________________________________________ -->
+
+<div class="page_block">
+	<div style="float:left;">
+		<div id="info">info: </div>
+	</div>
+
+	<div style="float:right;">
+		<div>Результат по всем портфелям за неделю:</div>
+		<div style="float:right;">
+			Start: $$$ End: $$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span id="total_cash" style="font-size:20px;">
+				<%= @total_cash.round(2) if @total_cash %>
+			</span>
+			$
+			&nbsp;&nbsp;&nbsp;
+			<span id="total_percent" style="font-size:16px;">
+				<%= @total_percent.round(2) if @total_percent %>
+			</span>
+			%
+		</div>
+	</div>
+
+	<div style="clear:both"></div>
+</div>
+<br/>
+
+
+<!-- portfolios block _____________________________________________________________ -->
+
+<div class="page_block">
+	<select id="portfolio_select" style="float:left; width:150px;">
+		<% @user.portfolios.each_with_index do |portfolio, index| %>
+			<option <%= "selected" if portfolio.name == @current_portfolio.name %> value="<%= portfolio.name %>"><%= portfolio.name %></option>
+		<% end %>
+	</select>
+
+	<div style="float:left; width:250px;">
+		<ul>
+			<li>Рейтинг портфеля: <b id="portfolio_rating"><%= @current_portfolio.rating %></b></li>
+			<li>Количество недель: <b id="portfolio_weeks"><%= @current_portfolio.portfolio_weeks.length %></b></li>
+		</ul>
+	</div>
+
+	<button id="my_portfolios_btn" class="btn btn-success btn-xs" style="float:right;">Мои портфели</button>
+
+	<div style="clear:both"></div>
+</div>
+<br/>
+
+
+<!-- weeks block ___________________________________________________________________ -->
+
+<div class="page_block">
+	<!-- weeks buttons -->
+	<div style="float:left; width:110px;">
+		<button id="create_week_empty_btn" class="btn btn-success btn-xs" style="width:110px; margin-bottom:7px;">Новая пустая</button>
+		
+		<button id="create_week_reinvest_btn" class="btn btn-success btn-xs" style="width:110px; margin-bottom:7px;">Новая реинвест</button>
+		
+		<button id="remove_week_btn" class="btn btn-danger btn-xs" style="width:110px;">Удалить текущую</button>
+	</div>
+
+	<!-- weeks chart -->
+	<div id="weeks_chart" style="float:right; width:790px; height:200px;"></div>
+
+	<div style="clear:both"></div>
+</div>
+<br/>
+
+
+<!-- table block ___________________________________________________________________ -->
+
+<div class="page_block">
+	<div style="float:left;">
+		<div style="float:left;">Неделя &nbsp;</div>
+		<input id="week_date" type="text" class="form-control" placeholder="Выберите дату" style="float:left; width:130px; text-align:center;" value="<%= @current_week.date.strftime('%d.%m.%Y') if @current_week && @current_week.date %>">
+		<div style="clear:both"></div>
+
+		<div style="float:left;">Сумма на начало недели &nbsp;</div>
+		<div id="week_start_value" style="float:left; width:60px; height:25px; background-color:#beb;">
+			<%= @current_week.start_value.round(2) if @current_week && @current_week.start_value %>
+		</div>
+		<div style="clear:both"></div>
+
+		<div style="float:left;">Сумма на конец недели &nbsp;&nbsp;&nbsp;</div>
+		<div id="week_end_value" style="float:left; width:60px; height:25px; background-color:#beb;">
+			<%= @current_week.end_value.round(2) if @current_week && @current_week.end_value %>
+		</div>
+		<div style="clear:both"></div>
+
+		<div style="float:left;">Свободные средства &nbsp;&nbsp;&nbsp;</div>
+		<div id="week_free_cash" style="float:left; width:60px; height:25px; background-color:#beb;">
+			<%= @current_week.free_cash.round(2) if @current_week && @current_week.free_cash %>
+		</div>
+		<div style="clear:both"></div>
+	</div>
+
+	<div style="float:left; margin-left:200px;">
+		<span>Доход за неделю, $ &nbsp;&nbsp;</span>
+		<span id="week_profit_cash">
+			<%= ((@current_week.end_value - @current_week.start_value).round(2)) if (@current_week && @current_week.start_value && @current_week.end_value) %>
+		</span>
+		<br/>
+
+		<span>Доход за неделю, % &nbsp;</span>
+		<span id="week_profit_percent">
+			<%= (((@current_week.end_value / @current_week.start_value - 1) * 100).round(2)) if (@current_week && @current_week.start_value && @current_week.end_value) %>
+		</span>
+	</div>
+
+	<div style="clear:both"></div>
+	<br/>
+
+	<div style="float:left;">
+		<textarea id="week_comment" rows="4" cols="50" placeholder="Комментарий недели" style="float:left; width:800px; height:70px;"><%= @current_week.comment if @current_week && @current_week.comment %></textarea>
+		<div id="comment_counter" style="float:right; font-style:italic"></div>
+		<button id="save_comment_button" class="btn btn-success btn-xs" style="float:right;">Save comment</button>
+	</div>
+
+	<div style="clear:both"></div>
+
+	<button id="add_row_btn" class="btn btn-success btn-xs">Add row</button>
+	<button id="remove_row_btn" class="btn btn-success btn-xs">Remove row</button>
+	<br/><br/>
+	
+	<% if @portfolio_traders.any? %>
+		<%= render 'shared/main_table' %>
+		<br/>
+	<% end %>
+</div>
+<br/>
+
+
+<!-- charts block __________________________________________________________________ -->
+
+<div class="page_block">
+	<div id="current_portfolio_traders_chart" style="float:left; width:49.7%; height:300px;"></div>
+
+	<div id="all_portfolios_traders_chart" style="float:left; margin-left:5px; width:49.7%; height:300px;"></div>
+	
+	<div style="clear:both"></div>
+	<br/>
+
+	<div><b>History charts:</b></div>
+	<button id="percent_history_chart_button" class="btn btn-success btn-xs" disabled = "disabled" style="width:120px; margin-bottom:5px; text-align:left;">Profit_%</button>
+	<button id="cash_history_chart_button" class="btn btn-success btn-xs" style="width:120px; margin-bottom:5px; text-align:left;">Profit_cash</button>
+	<button id="grow_history_chart_button" class="btn btn-success btn-xs" style="width:120px; margin-bottom:5px; text-align:left;">Profit_cash (grow)</button>
+
+	<div id="history_chart" style="float:left; width:910px; height:400px;"></div>
+
+	<div style="clear:both"></div>
 </div>
 
-<br/><br/><hr/>
-Portfolios:
-<ol>
-	<% @user.portfolios.each do |portfolio| %>
-		<li>
-			<b>Portfolio:</b> <%= portfolio.name %><br/>
-			Rating: <%= portfolio.rating %><br/>
-			Comment: <%= portfolio.comment %>
-			<ul>
-				<% portfolio.portfolio_weeks.each_with_index do |week, index| %>
-					<li>Week_<%= index+1 %> - Rating: <%= week.profit %></li>
-					Traders:
-					<ul>
-						<% week.portfolio_traders.each do |portfolio_trader| %>
-							<li>
-								<% trader = Trader.find_by_account(portfolio_trader.trader_account) %>
-								Start: <%= portfolio_trader.start_value %>&nbsp;&nbsp;&nbsp;
-								End: <%= portfolio_trader.end_value %>&nbsp;&nbsp;&nbsp;
-								<%= trader.account %>&nbsp;&nbsp;&nbsp;
-								TP: <%= trader.tp %>&nbsp;&nbsp;&nbsp;
-								<%= trader.brocker %>
-							</li>
-						<% end %>
-					</ul>
-				<% end %>
-			</ul>
-		</li>
-	<% end %>
-</ol>
+
+
+
+<!-- modal windows -->
+<%= render 'modals/my_portfolios_modal' %>
+<%= render 'modals/trader_select_modal' %>
+<%= render 'modals/remove_portfolio_modal' %>
+<%= render 'modals/remove_week_modal' %>
+
+
+
+
+<!-- test charts -->
+<!-- <br/>
+<div id="test_chart" style="width:910px; height:300px;"></div><br/>
+<div id="test_drilldown_chart" style="width:910px; height:400px;"></div> -->
+
+<br/><br/><br/><br/><br/>
+

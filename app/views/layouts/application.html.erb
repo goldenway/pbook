@@ -10,14 +10,25 @@
 
 	<body>
 		<%= render 'layouts/header' %>
-		<div class="container">
+		<div style="width:1050px; margin:0 auto; padding:10px;"> <!-- class="container" -->
 			<% flash.each do |key, value| %>
 				<%= content_tag(:div, value, class: "alert alert-#{key}") %>
 				<!-- the same as -->
 				<!-- <div class="alert alert-<%= key %>"><%= value %></div> -->
 			<% end %>
 
-			<%= yield %>
+			<div class="menu_block"> <!-- class="row menu_block" -->
+				<aside class="span4">
+					<section>
+						<%= render 'layouts/menu_block' %>
+					</section>
+				</aside>
+			</div>
+
+			<section>
+				<%= yield %>
+			</section>
+
 			<%= render 'layouts/footer' %>
 			<%= debug(params) if Rails.env.development? %>
 		</div>

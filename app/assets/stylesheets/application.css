@@ -16,6 +16,9 @@
  *= require_tree .
 
 
+ *= require bootstrap-editable.css
+
+
  *= require dataTables/jquery.dataTables
  // додає полоски над і під таблицею
  *= require dataTables/jquery.dataTables.bootstrap3

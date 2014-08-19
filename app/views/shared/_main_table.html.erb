@@ -1,0 +1,53 @@
+<% if @portfolio_traders %>
+	<table id="main_table" class="display table table-striped table-bordered table-condensed">
+		<thead>
+			<tr>
+				<th rowspan="2">#</th>
+				<th rowspan="2" style="width:100px !important">Брок</th>
+				<th rowspan="2">Fav</th>
+				<th rowspan="2">Управ</th>
+				<th rowspan="2">Счет</th>
+				<th colspan="5">Информация о трейдере</th>
+				<th colspan="5">Текущая неделя</th>
+			</tr>
+			<tr>
+				<th>Срок</th>
+				<th>ТП</th>
+				<th>% инв</th>
+				<th>2.0</th>
+				<th>min S</th>
+				<th>% портф</th>
+				<th>S start</th>
+				<th>S end</th>
+				<th>Prof S</th>
+				<th>Prof %</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @portfolio_traders.all.each do |portfolio_trader| %>
+				<% current_trader = Trader.find_by_account(portfolio_trader.trader_account) %>
+				<tr>
+					<td></td>
+					<td><%= current_trader.brocker %></td>
+					<td class="fav_column" id="<%= current_trader.account %>"><%= ["+", "-"].sample %></td>
+					<td class="trader_column" data-title="<%= current_trader.name %>" data-content="<div>This <b>is my div</b> content</div>
+							 <%= current_trader.account %>
+							 <button type='button' class='btn btn-success btn-xs'>Open</button>
+					"><a href="http://google.com" target="_blank"><%= current_trader.name %></a></td>
+					<td><%= current_trader.account %></td>
+					<td><%= (Date.today - current_trader.registration_date).to_i %></td>
+					<td><%= current_trader.tp %></td>
+					<td><%= current_trader.investor_percent %></td>
+					<td><%= current_trader.pamm2 %></td>
+					<td><%= current_trader.min_value %></td>
+					<td class="trader_percent_column"></td>
+					<td class="start_value_column"><%= portfolio_trader.start_value.round(2) if portfolio_trader.start_value %></td>
+					<td class="end_value_column"><%= portfolio_trader.end_value.round(2) if portfolio_trader.end_value %></td>
+					<td><%= (portfolio_trader.end_value - portfolio_trader.start_value).round(2) if (portfolio_trader.start_value && portfolio_trader.end_value) %></td>
+					<td><%= ((portfolio_trader.end_value / portfolio_trader.start_value - 1) * 100).round(2) if (portfolio_trader.start_value && portfolio_trader.end_value) %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+

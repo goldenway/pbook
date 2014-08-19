@@ -1,0 +1,57 @@
+<div id="trader_select_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:700px">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Выберите управляющего</h4>
+			</div>
+
+			<div class="modal-body">
+				<select id="brocker_select" style="width:150px; display:inline-block;">
+					<option value="">Все управл</option>
+					<option>FX</option>
+					<option>Panteon</option>
+				</select>
+
+				<select id="favorite_select" style="width:150px; display:inline-block;">
+					<option value="">Все управл</option>
+					<option>Favor</option>
+				</select>
+
+				<input id="trader_input" type="text" name="Trader" placeholder="Trader" style="width:150px; display:inline-block;">
+
+				<input id="account_input" type="text" name="Account" placeholder="Account" style="width:150px; display:inline-block;">
+
+				<br/>
+
+				<table id="trader_select_table" class="display">
+					<thead>
+						<tr>
+							<th>Брок</th>
+							<th>Fav</th>
+							<th>Управ</th>
+							<th>Счет</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% Trader.all.each do |trader| %>
+							<tr>
+								<td><%= trader.brocker %></td>
+								<td>...</td>
+								<td><%= trader.name %></td>
+								<td><%= trader.account %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" id="trader_select_add_modal_btn" class="btn btn-primary">Добавить</button>
+				<button type="button" id="trader_select_cancel_modal_btn" class="btn btn-default">Отмена</button>
+			</div>
+
+		</div>
+	</div>
+</div>

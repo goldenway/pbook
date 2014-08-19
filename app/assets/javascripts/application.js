@@ -18,8 +18,23 @@
 //= require_tree .
 
 
+
+// jQuery word and character counter plugin
+//= require character_counter.js
+
+
+//= require bootstrap-editable.min.js
+
+
+// highcharts plugin
+//= require highcharts.js
+//= require highcharts_gray_theme.js
+//= require highcharts_sand_theme.js
+
+
+
 //  with this file "bJQueryUI" doesn't work
-//  require dataTables/jquery.dataTables.bootstrap3
+// require dataTables/jquery.dataTables.bootstrap3
 
 // ColVis Extra (DataTables)
 //= require dataTables/extras/ColVis
@@ -30,3 +45,5 @@
 
 // ColumnFilter Extra (DataTables)
 //= require dataTables/columnFilter.js
+
+

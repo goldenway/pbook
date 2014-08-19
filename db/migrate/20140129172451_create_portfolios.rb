@@ -4,7 +4,6 @@ class CreatePortfolios < ActiveRecord::Migration
 			t.integer :user_id
 			t.string :name
 			t.float :rating
-			t.string :comment
 
 			t.timestamps
 		end

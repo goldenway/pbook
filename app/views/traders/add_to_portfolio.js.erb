@@ -1,0 +1,5 @@
+$("#info").append("<br/>trader: <%= params[:trader_account] %>")
+
+<% @portfolio_names.each do |portfolio| %>
+	$("#info").append("<br/>portfolio: <%= portfolio %>")
+<% end %>

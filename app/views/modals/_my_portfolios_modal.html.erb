@@ -1,0 +1,33 @@
+<div id="my_portfolios_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:400px">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Управление портфелями</h4>
+			</div>
+
+			<div class="modal-body">
+				<% @user.portfolios.each do |portfolio| %>
+					<div id="portfolio_<%= portfolio.name %>">
+						<span style="float:left; width:250px"><%= portfolio.name %></span>
+						<button type="button" class="remove_portfolio_btn btn btn-danger btn-xs" value="<%= portfolio.name %>">Удалить</button>
+						<hr/>
+					</div>
+				<% end %>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" id="new_portfolio_btn" class="btn btn-success btn-xs" style="float:left">Создать новый</button>
+
+				<div id="new_portfolio_form" style="display:none">
+					<input id="new_portfolio_input" type="text" style="float:left; width:200px" />
+					<button id="create_portfolio_btn" class="btn btn-success btn-xs">Сохранить</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+

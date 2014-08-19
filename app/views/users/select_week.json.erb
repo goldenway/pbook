@@ -1,0 +1,69 @@
+{
+	"is_selected_new_week" : "<%= @is_selected_new_week %>",
+
+	"total_cash" : "<%= @total_cash.round(2) if @total_cash %>",
+	"total_percent" : "<%= @total_percent.round(2) if @total_percent %>",
+
+	"week_date" : "<%= @current_week.date.strftime('%d.%m.%Y') if @current_week && @current_week.date %>",
+	"week_start_value" : "<%= @current_week.start_value if @current_week %>",
+	"week_end_value" : "<%= @current_week.end_value if @current_week %>",
+	"week_free_cash" : "<%= @current_week.free_cash if @current_week %>",
+	"week_comment" : "<%= @current_week.comment if @current_week %>",
+
+	"traders" : [
+		<% if @traders && @traders.any? %>
+			{
+				"number" : "",
+				"brocker" : "<%= @traders[0].brocker %>",
+				"favorite" : "<%= ["+", "-"].sample %>",
+				"name" : "<%= @traders[0].name %>"
+			}
+
+			<% @traders[1..-1].each do |trader| %>
+			,
+			{
+				"number" : "",
+				"brocker" : "<%= trader.brocker %>",
+				"favorite" : "<%= ["+", "-"].sample %>",
+				"name" : "<%= trader.name %>"
+			}
+			<% end %>
+		<% end %>
+	],
+	"portfolio_week_traders" : [
+		<% if @portfolio_week_traders && @portfolio_week_traders.any? %>
+			{
+				"trader_account" : "<%= @portfolio_week_traders[0][:trader_account] %>",
+				"trader_name" : "<%= @portfolio_week_traders[0][:trader_name] %>",
+				"trader_value" : "<%= @portfolio_week_traders[0][:trader_value] %>"
+			}
+			
+			<% @portfolio_week_traders[1..-1].each do |portfolio_trader| %>
+			,
+			{
+				"trader_account" : "<%= portfolio_trader[:trader_account] %>",
+				"trader_name" : "<%= portfolio_trader[:trader_name] %>",
+				"trader_value" : "<%= portfolio_trader[:trader_value] %>"
+			 }
+			<% end %>
+		<% end %>
+	],
+	"all_week_traders" : [
+		<% if @all_week_traders && @all_week_traders.any? %>
+			{
+				"trader_account" : "<%= @all_week_traders[0][:trader_account] %>",
+				"trader_name" : "<%= @all_week_traders[0][:trader_name] %>",
+				"trader_value" : "<%= @all_week_traders[0][:trader_value] %>"
+			}
+			
+			<% @all_week_traders[1..-1].each do |portfolio_trader| %>
+			,
+			{
+				"trader_account" : "<%= portfolio_trader[:trader_account] %>",
+				"trader_name" : "<%= portfolio_trader[:trader_name] %>",
+				"trader_value" : "<%= portfolio_trader[:trader_value] %>"
+			 }
+			<% end %>
+		<% end %>
+	]
+}

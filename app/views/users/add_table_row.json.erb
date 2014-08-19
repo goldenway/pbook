@@ -1,0 +1,40 @@
+{
+	"is_table_row_added" : "<%= @is_table_row_added %>",
+	
+	"portfolio_week_traders" : [
+		<% if @portfolio_week_traders && @portfolio_week_traders.any? %>
+			{
+				"trader_account" : "<%= @portfolio_week_traders[0][:trader_account] %>",
+				"trader_name" : "<%= @portfolio_week_traders[0][:trader_name] %>",
+				"trader_value" : "<%= @portfolio_week_traders[0][:trader_value] %>"
+			}
+			
+			<% @portfolio_week_traders[1..-1].each do |portfolio_trader| %>
+			,
+			{
+				"trader_account" : "<%= portfolio_trader[:trader_account] %>",
+				"trader_name" : "<%= portfolio_trader[:trader_name] %>",
+				"trader_value" : "<%= portfolio_trader[:trader_value] %>"
+			 }
+			<% end %>
+		<% end %>
+	],
+	"all_week_traders" : [
+		<% if @all_week_traders && @all_week_traders.any? %>
+			{
+				"trader_account" : "<%= @all_week_traders[0][:trader_account] %>",
+				"trader_name" : "<%= @all_week_traders[0][:trader_name] %>",
+				"trader_value" : "<%= @all_week_traders[0][:trader_value] %>"
+			}
+			
+			<% @all_week_traders[1..-1].each do |portfolio_trader| %>
+			,
+			{
+				"trader_account" : "<%= portfolio_trader[:trader_account] %>",
+				"trader_name" : "<%= portfolio_trader[:trader_name] %>",
+				"trader_value" : "<%= portfolio_trader[:trader_value] %>"
+			 }
+			<% end %>
+		<% end %>
+	]
+}

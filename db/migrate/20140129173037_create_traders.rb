@@ -4,7 +4,7 @@ class CreateTraders < ActiveRecord::Migration
             t.string :brocker
             t.string :name
             t.integer :account
-            t.datetime :registration_date
+            t.date :registration_date
             t.integer :pamm2
             t.integer :tp
             t.integer :min_value

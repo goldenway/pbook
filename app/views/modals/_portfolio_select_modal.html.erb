@@ -1,0 +1,27 @@
+<div id="portfolio_select_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width:400px">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Добавить в <b style="color:red">последнюю неделю (1.05.2014)</b> портфеля - <b id="adding_trader"></b>:</h4>
+			</div>
+
+			<div class="modal-body">
+				<% current_user.portfolios.each do |portfolio| %>
+					<label>
+						<input type="checkbox" name="portfolio_checkbox" value="<%= portfolio.name %>" style="width:20px;" />
+						<%= portfolio.name %>
+					</label>
+					<br/>
+				<% end %>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" id="portfolio_select_ok_modal_btn" class="btn btn-primary">Сохранить</button>
+				<button type="button" id="portfolio_select_cancel_modal_btn" class="btn btn-default">Отмена</button>
+			</div>
+
+		</div>
+	</div>
+</div>

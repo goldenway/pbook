@@ -1,0 +1,41 @@
+
+
+
+
+
+<table id="portfolios_table" class="display">
+	<thead>
+		<tr>
+			<th>Fav</th>
+			<th>Портф</th>
+			<th>Инв</th>
+			<th>Недель</th>
+			<th>Рейт</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% Portfolio.all.each do |portfolio| %>
+			<tr>
+				<td>...</td>
+				<td><%= portfolio.name %></td>
+				<td><%= portfolio.user.name %></td>
+				<td><%= portfolio.portfolio_weeks.count %></td>
+				<td><%= portfolio.rating %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+
+<div id="info">info: </div>
+<br/>
+
+
+
+<div id="portfolio_data_block">
+	<%= render 'shared/main_table' %>
+</div>
+
+
+

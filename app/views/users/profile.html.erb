@@ -1,0 +1,94 @@
+<% provide(:title, @user.name) %>
+
+<div class="">
+	<aside class="span4" style="float:left">
+		<section>
+			<h1>
+				<%= gravatar_for @user, size: 70 %>
+				<%= @user.name %>
+			</h1>
+			<span><%= link_to "profile", @user %></span>
+		</section>
+		<section>
+			<b>Name: </b><%= @user.name %><br/>
+			<b>First name: </b></b><%= @user.first_name %><br/>
+			<b>Second name: </b><%= @user.second_name %><br/>
+			<b>M/W: </b><%= @user.sex %><br/>
+			<b>Date of birth: </b><%= @user.date_of_birth %><br/>
+			<b>Country: </b><%= @user.country %><br/>
+			<b>City: </b><%= @user.city %><br/>
+			<b>Registration: </b><%= @user.created_at %><br/>
+			<b>Start invest: </b><%= @user.start_inv_date %><br/>
+			<b>Portfolios count: </b><%= @user.portfolios.length %><br/>
+			<b>Email: </b><%= @user.email %><br/>
+			<b>Facebook: </b><%= @user.social_fb %><br/>
+			<b>Vkontakte: </b><%= @user.social_vk %><br/>
+		</section>
+	</aside>
+</div>
+
+
+
+
+<div class="panel panel-default" style="float:right; width:500px">
+	<div class="panel-heading">Управление портфелями</div>
+	<table class="table">
+		<% @user.portfolios.each do |portfolio| %>
+			<tr>
+				<td style="width:60%"><%= portfolio.name %></td>
+				<td><button type="button" class="btn btn-success btn-xs">Изменить</button></td>
+				<td><td><button type="button" class="btn btn-danger btn-xs">Удалить</button></td></td>
+			</tr>
+		<% end %>
+	</table>
+	<button type="button" class="btn btn-success btn-xs" style="margin-left:10px; margin-bottom:10px">Создать новый</button>
+</div>
+
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><hr/>
+Portfolios:
+<ol>
+	<% @user.portfolios.each do |portfolio| %>
+		<li>
+			<b>Portfolio:</b> <%= portfolio.name %><br/>
+			Rating: <%= portfolio.rating %><br/>
+			Comment: <%= portfolio.comment %>
+		</li>
+	<% end %>
+</ol>
+
+
+
+
+<br/><br/><hr/>
+Portfolios:
+<ol>
+	<% @user.portfolios.each do |portfolio| %>
+		<li>
+			<b>Portfolio:</b> <%= portfolio.name %><br/>
+			Rating: <%= portfolio.rating %><br/>
+			Comment: <%= portfolio.comment %>
+			<ul>
+				<% portfolio.portfolio_weeks.each_with_index do |week, index| %>
+					<li>Week_<%= index+1 %> - Rating: <%= week.profit %></li>
+					Traders:
+					<ul>
+						<% week.portfolio_traders.each do |portfolio_trader| %>
+							<li>
+								<% trader = Trader.find_by_account(portfolio_trader.trader_account) %>
+								Start: <%= portfolio_trader.start_value %>&nbsp;&nbsp;&nbsp;
+								End: <%= portfolio_trader.end_value %>&nbsp;&nbsp;&nbsp;
+								<%= trader.account %>&nbsp;&nbsp;&nbsp;
+								TP: <%= trader.tp %>&nbsp;&nbsp;&nbsp;
+								<%= trader.brocker %>
+							</li>
+						<% end %>
+					</ul>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+</ol>

@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 					:second_name, :sex, :date_of_birth, :country, :city, :start_inv_date,
 					:social_vk, :social_fb, :about_info
 
-	has_many :portfolios
+	has_many :portfolios, dependent: :destroy
 
 	has_secure_password
 

@@ -1,0 +1,4 @@
+<% @user = current_user %>
+<% @portfolio = @user.portfolios.sample %>
+
+$("#test_get_text").html("<%= @portfolio.name %>")

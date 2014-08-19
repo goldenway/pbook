@@ -1,0 +1,5 @@
+<% @user = current_user %>
+<% @portfolio = @user.portfolios.sample %>
+<% @portfolio.update_attributes(name: @portfolio.name + "1") %>
+
+$("#test_post_status").html("success")
